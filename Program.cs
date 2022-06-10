@@ -106,28 +106,50 @@ namespace OOP_10_2
                 fish.RemoveOneLife();
             }
 
-            while (thereAreLive)
+            while (thereAreLive)//\\\\
             {
-                foreach (Fish fish in _fishs)
+                FindFishToRemove();
+                thereAreLive = ContinueCicle();
+                if (ContinueCicle())
                 {
-                    if (fish.Status == true)
-                    {
-                        RemoveFish(fish);
-                        break;
-                    }
+                thereAreLive = ThereFishInAquarium();
                 }
+            }
+        }
 
-                for (int i = 0; i < _fishs.Count; i++)
+        private bool ThereFishInAquarium()
+        {
+            bool continueTemp = true;
+
+            if (_fishs.Count == 0)
+            {
+                continueTemp = false;
+            }
+            return continueTemp;
+        }
+
+        private bool ContinueCicle()
+        {
+            bool continueTemp = true;
+
+            for (int i = 0; i < _fishs.Count; i++)
+            {
+                if (_fishs[i].IsDead == false | i == _fishs.Count - 1 | _fishs.Count == 0)
                 {
-                    if (_fishs[i].Status == false | i == _fishs.Count - 1 | _fishs.Count == 0)
-                    {
-                        thereAreLive = false;
-                    }
+                    continueTemp = false;
                 }
+            }
+            return continueTemp;
+        }
 
-                if (_fishs.Count == 0)
+        private void FindFishToRemove()
+        {
+            foreach (Fish fish in _fishs)
+            {
+                if (fish.IsDead == true)
                 {
-                    thereAreLive = false;
+                    RemoveFish(fish);
+                    break;
                 }
             }
         }
@@ -218,7 +240,7 @@ namespace OOP_10_2
             string status;
             int indent = index + 5;
 
-            if (fish.Status == true)
+            if (fish.IsDead == true)
                 status = "Мертвая";
             else
                 status = "Живая";
@@ -278,7 +300,7 @@ namespace OOP_10_2
 
         internal char Skin { get; private set; }
 
-        internal bool Status { get; private set; }
+        internal bool IsDead { get; private set; }
 
         internal ConsoleColor ColorFish { get; private set; }
 
@@ -288,7 +310,7 @@ namespace OOP_10_2
             Life = GenerateLife();
             Skin = GenerateSkin();
             ColorFish = GenerateColor();
-            Status = false;
+            IsDead = false;
         }
 
         internal void RemoveOneLife()
@@ -298,7 +320,7 @@ namespace OOP_10_2
             if (Life <= 0)
             {
                 Life = 0;
-                Status = true;
+                IsDead = true;
             }
         }
 
