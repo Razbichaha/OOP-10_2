@@ -23,7 +23,7 @@ namespace OOP_10_2
                     ConsoleKeyInfo key = Console.ReadKey(true);
 
                     switch (key.Key)
-                        {
+                    {
                         case ConsoleKey.Enter:
 
                             aquarium.AddFish();
@@ -48,7 +48,7 @@ namespace OOP_10_2
 
     class Aquarium
     {
-        Menu _menu = new Menu();
+        private Menu _menu = new Menu();
 
         private List<Fish> _fishs = new List<Fish>();
         private int _maximumFish = 10;
@@ -74,7 +74,8 @@ namespace OOP_10_2
             if (tempId.Exists(idFromList => idFromList == id))
             {
                 RemoveFish(id);
-            }else
+            }
+            else
             {
                 _menu.ShowEnterErrorId();
             }
@@ -95,7 +96,7 @@ namespace OOP_10_2
         {
             return _fishs.Count;
         }
-       
+
         internal void CalculateLifeCycleAquarium()
         {
             bool thereAreLive = true;
@@ -111,7 +112,7 @@ namespace OOP_10_2
                 {
                     if (fish.Status == true)
                     {
-                       RemoveFish(fish);
+                        RemoveFish(fish);
                         break;
                     }
                 }
@@ -200,12 +201,12 @@ namespace OOP_10_2
 
         internal int EnterId()
         {
-            int  id=0;
+            int id = 0;
             SetCursorPositionMessag();
             Console.Write("Введите ID рыбы для удаления - ");
             string idString = Console.ReadLine();
 
-            if (int.TryParse(idString, out id)==false)
+            if (int.TryParse(idString, out id) == false)
             {
                 Console.Write("Вы ввели не число попробуйте еще раз.");
             }
@@ -225,7 +226,7 @@ namespace OOP_10_2
             Console.SetCursorPosition(_messageCoordinateLeftTop[0], _messageCoordinateLeftTop[1] + indent);
             Console.Write($"Id - {fish.Id} Жизнь - {fish.Life}");
             Console.Write(" Скин - ");
-            Console.ForegroundColor = fish.colorFish;
+            Console.ForegroundColor = fish.ColorFish;
             Console.Write(fish.Skin);
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write($" Статус - {status}     ");
@@ -279,14 +280,14 @@ namespace OOP_10_2
 
         internal bool Status { get; private set; }
 
-        internal ConsoleColor colorFish { get; private set; }
+        internal ConsoleColor ColorFish { get; private set; }
 
         internal Fish(int id)
         {
             Id = id;
             Life = GenerateLife();
             Skin = GenerateSkin();
-            colorFish = GenerateColor();
+            ColorFish = GenerateColor();
             Status = false;
         }
 
